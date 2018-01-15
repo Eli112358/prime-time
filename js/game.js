@@ -9,7 +9,7 @@ function initGame() {
     },
     'scoring': {
       'title': 'Game - Scoring',
-      'body': 'Scoring is like in golf: lower is better. Par far a number is simply the sum of the powers of its prime factors'
+      'body': 'Scoring is like in golf: lower is better. Par is the sum of the powers of the prime factors of the starting target'
     },
     'target': {
       'title': 'Game - Target number',
