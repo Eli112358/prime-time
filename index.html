@@ -1,0 +1,137 @@
+<html>
+  <head>
+	  <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" type="text/css" href="http://eli112358.github.com/stylesheets/stylesheet.css"></link>
+		<link rel="stylesheet" type="text/css" href="http://eli112358.github.com/stylesheets/pygment_trac.css"></link>
+    <link rel="stylesheet" type="text/css" href="http://eli112358.github.com/stylesheets/print.css" media="print">
+		<link rel="stylesheet" type="text/css" href="css/main.css"></link>
+		<link rel="stylesheet" type="text/css" href="css/model.css"></link>
+    <title>Eli112358 - Prime Time</title>
+		<script type="text/javascript" src="js/game.js"></script>
+		<script type="text/javascript" src="js/info.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/model.js"></script>
+		<script type="text/javascript" src="js/module.js"></script>
+		<script type="text/javascript" src="js/prime.js"></script>
+		<script type="text/javascript" src="js/settings.js"></script>
+		<script type="text/javascript" src="js/stats.js"></script>
+		<script type="text/javascript" src="js/tool.js"></script>
+  </head>
+  <body onload="load()">
+    <header>
+			<div class="container">
+				<h1>Eli112358</h1>
+        <h2>Prime Time</h2>
+				<section id="downloads">
+					<a href="https://github.com/eli112358" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+				</section>
+			</div>
+		</header>
+		<div class="container">
+			<section id="main_content">
+        <button id="settings-open">Settings</button><br><br>
+        <div id="info-main" class="info model hidden">
+          <div class="model-content">
+            <div class="model-header">
+              <span id="info-close" class="close">&times;</span>
+              <h2>Info: <span id="info-title"></span></h2>
+            </div>
+            <div id="info-body" class="model-body"></div>
+            <div id="info-footer" class="model-footer"></div>
+          </div>
+        </div>
+        <div id="settings-main" class="settings model hidden">
+          <div class="model-content">
+            <div class="model-header">
+              <span id="settings-close" class="close">&times;</span>
+              <h2>Settings</h2>
+            </div>
+            <div class="model-body">
+              Color:<br>
+              <table>
+                <tr>
+                  <td>Red:</td>
+                  <td><input type="range" id="settings-color-red" value="68"></td>
+                </tr>
+                <tr>
+                  <td>Green:</td>
+                  <td><input type="range" id="settings-color-green" value="68"></td>
+                </tr>
+                <tr>
+                  <td>Blue:</td>
+                  <td><input type="range" id="settings-color-blue" value="255"></td>
+                </tr>
+              </table>
+              Mode: <input type="button" id="settings-mode" value="Game" class="button"><br/>
+              Range: <input type="number" id="settings-store-range" value="10">
+              <div class="settings-section">
+                Formula:
+                <input type="string" id="settings-store-formula" value="x">
+              </div>
+              <div class="settings-section hidden">
+                Offset:
+                <input type="number" id="settings-store-offset" value="10">
+              </div>
+            </div>
+            <div class="model-footer">
+              <p>Changes are saved upon closing this</p>
+            </div>
+          </div>
+        </div>
+        <div id="tool-main" class="mode-main">
+          <h3>Enter a number to check if it's prime:</h3>
+          <form action="javascript:checkRange()">
+            <input type="number" id="tool-input" autofocus>
+            <input type="submit" value="Check" class="button"><br>
+            <input type="reset" onclick="clearForm(true)" class="button">
+            <input type="button" value="-" onclick="delta('-')" class="button delta">
+            <input type="button" value="+" onclick="delta('+')" class="button delta">
+          </form>
+          <h2>Stats
+            <button id="stats-toggle">show</button>
+          </h2>
+          <div id="stats-div" class="hidden"></div>
+          <h2 id="tool-answer"></h2>
+          <p id="tool-pf" class="hidden">*Prime Factorization</p>
+        </div>
+        <div id="game-main" class="mode-main hidden">
+          <h4 id="game-info-how-to-play">How to play?</h4>
+          <h3>Score<sup id="game-info-scoring">?</sup>: <span id="game-score">0</span></h3>
+          <h3>Target<sup id="game-info-target">?</sup>: <span id="game-target">0</span></h3>
+          <p>Try to guess the prime factors of the target</p>
+          <form action="javascript:makeGuess()">
+            Prime Factor:
+            <select id="game-pf">
+              <option value="2">2</option>
+            </select>
+            to the Power of:
+            <input type="number" id="game-pow" value="1"><br/>
+            <input type="submit" id="game-guess" value="Guess" class="button">
+            <input type="reset" id="game-start" value="New Game" class="button">
+          </form>
+          <h2>Correct:</h2>
+          <h2 id="game-correct"></h2>
+          <h2>Incorrect:</h2>
+          <h2 id="game-incorrect"></h2>
+        </div>
+        <div id="end-game-main" class="end-game model hidden">
+          <div class="model-content">
+            <div class="model-header">
+              <span id="end-game-close" class="close">&times;</span>
+              <h2>End-game</h2>
+            </div>
+            <div class="model-body">
+              <h2>Score: <span id="end-game-score"></span></h2>
+              <h2>Par: <span id="end-game-par"></span></h2>
+            </div>
+            <div class="model-footer">
+              Thanks for playing! Closing this will start a new game
+            </div>
+          </div>
+        </div>
+			</section>
+		</div>
+  </body>
+</html>
