@@ -11,11 +11,15 @@ function initSettings() {
       settings[n].ele.forEach(func)
     })
   };
+  settings.color.set = (n, val) => {
+    document.documentElement.style.setProperty(`--${n}`, val)
+  };
   settings.model = initModel(settings, () => {settings.forEach(settings.save)});
   settings.forEach(settings.load)
   colors.forEach((n) => {
+    settings.color.set(n, settings.color.ele[n].value);
     settings.color.ele[n].addEventListener('change', function() {
-      document.documentElement.style.setProperty(`--${n}`, this.value);
+      settings.color.set(n, this.value)
     });
   });
   var setupButton = (name, values, func) => {
