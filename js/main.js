@@ -1,4 +1,3 @@
-var storage = window.localStorage;
 function load() {
   initPrime();
   initInfo();
