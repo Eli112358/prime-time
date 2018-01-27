@@ -25,20 +25,26 @@ function initSettings() {
       settings.color.set(n, this.value)
     });
   });
-  var setupButton = (ele, values, func) => {
-    ele.onclick = () => {
-      toggleButton(ele, 'value', true, values);
-      func();
+  var setupButton = (spec) => {
+    spec.ele.onclick = () => {
+      toggleButton(spec);
+      spec.func();
     };
-    if(parseBool(localStorage[ele.id])) {
-      func();
-      ele.value = values[0];
+    if(parseBool(localStorage[spec.ele.id])) {
+      spec.func();
+      spec.ele.value = spec.values[0];
     }
-    else localStorage[ele.id] = 'false';
+    else localStorage[spec.ele.id] = 'false';
   };
-  setupButton(settings.ele.mode, ['Game', 'Tool'], () => {
-    ['mode-main', 'settings-section'].forEach((n) => {
-      [].forEach.call(getByClass(n), toggle);
-    });
+  setupButton({
+    'ele': settings.ele.mode,
+    'property': 'value',
+    'stored': true,
+    'values': ['Game', 'Tool'],
+    'func': () => {
+      ['mode-main', 'settings-section'].forEach((n) => {
+        [].forEach.call(getByClass(n), toggle)
+      })
+    }
   });
 }

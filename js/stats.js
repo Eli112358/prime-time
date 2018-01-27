@@ -2,11 +2,16 @@ var stats;
 function initStats() {
   stats = initModule('stats-', ['div', 'toggle']);
   stats.ele.toggle.onclick = () => {
-    toggleButton(stats.ele.toggle, 'innerHTML', '', ['show', 'hide']);
-    setHidden(stats.ele.div, 'toggle');
+    toggleButton({
+      'ele': stats.ele.toggle,
+      'property': 'innerHTML',
+      'stored': false,
+      'values': ['show', 'hide']
+    });
+    toggle(stats.ele.div);
   };
   stats.clear = () => {
-    setHidden(stats.ele.div, 'add');
+    hide(stats.ele.div);
     stats.ele.div.innerHTML = '';
     stats.ele.toggle.innerHTML = 'show';
     ['primes', 'gaps'].forEach((n) => {stats[n] = []});
