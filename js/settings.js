@@ -4,8 +4,11 @@ function initSettings() {
   settings = initModule('settings-', ['main', 'open', 'close', 'range', 'mode', 'formula', 'offset']);
   settings.color = initModule('settings-color-', colors);
   settings.store = initModule('settings-store-', ['formula', 'range', 'offset']);
-  settings.save = (ele) => {localStorage.setItem(ele.id, ele.value)};
-  settings.load = (ele) => {if(localStorage.getItem(ele.id)) ele.value = localStorage.getItem(ele.id)};
+  settings.save = (ele) => {localStorage[ele.id] = ele.value};
+  settings.load = (ele) => {
+    var storedValue = localStorage[ele.id];
+    if(storedValue) ele.value = storedValue;
+  };
   settings.forEach = (func) => {
     ['color', 'store'].forEach((n) => {
       settings[n].ele.forEach(func)
@@ -27,11 +30,11 @@ function initSettings() {
       toggleButton(settings.ele[name], 'value', name, values);
       func();
     };
-    if(parseBool(localStorage.getItem(name))) {
+    if(parseBool(localStorage[name])) {
       func();
       settings.ele[name].value = values[0];
     }
-    else localStorage.setItem(name, 'false');
+    else localStorage[name] = 'false';
   };
   setupButton('mode', ['Game', 'Tool'], () => {
     ['mode-main', 'settings-section'].forEach((n) => {
