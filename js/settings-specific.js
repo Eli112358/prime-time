@@ -5,7 +5,7 @@ function initSettingsSpecific() {
     'toggle': ['mode']
   });
   settings.toggle.setup({
-    'ele': settings.ele.toggle.mode,
+    'ele': settings.toggle.ele.mode,
     'property': 'value',
     'stored': true,
     'values': ['Game', 'Tool'],
