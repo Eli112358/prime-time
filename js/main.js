@@ -10,5 +10,5 @@ function load() {
       ele.classList.add('btn')
     })
   });
-  insertCodeFromFile('https://eli112358.github.io/donate.txt','downloads');
+  insertCodeFromFile('https://eli112358.github.io/snippets/donate.txt','downloads');
 }
