@@ -27,8 +27,9 @@ function initSettings() {
   });
   var setupButton = (spec) => {
     spec.ele.onclick = () => {
-      toggleButton(spec);
-      spec.func();
+      var specCopy = spec;
+      toggleButton(specCopy);
+      specCopy.func();
     };
     if(parseBool(localStorage[spec.ele.id])) {
       spec.func();
