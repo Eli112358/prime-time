@@ -44,47 +44,7 @@
             <div id="info-footer" class="model-footer"></div>
           </div>
         </div>
-        <div id="settings-main" class="settings model hidden">
-          <div class="model-content">
-            <div class="model-header">
-              <span id="settings-close" class="close">&times;</span>
-              <h2>Settings</h2>
-            </div>
-            <div class="model-body">
-              Color:<br>
-              <table>
-                <tr>
-                  <td>Red:</td>
-                  <td><input type="range" id="settings-color-red" value="68"></td>
-                </tr>
-                <tr>
-                  <td>Green:</td>
-                  <td><input type="range" id="settings-color-green" value="68"></td>
-                </tr>
-                <tr>
-                  <td>Blue:</td>
-                  <td><input type="range" id="settings-color-blue" value="255"></td>
-                </tr>
-              </table>
-              Mode: <input type="button" id="settings-toggle-mode" value="Game" class="button"><br/>
-              Range: <input type="number" id="settings-store-range" value="10">
-              <div class="settings-section">
-                Formula:
-                <input type="string" id="settings-store-formula" value="x">
-              </div>
-              <div class="settings-section hidden">
-                Offset:
-                <input type="number" id="settings-store-offset" value="10">
-              </div>
-            </div>
-            <div class="model-footer">
-              <p>
-                Changes should be saved upon closing this, but there's a bug.<br>
-                <span class="hidden">There was a bug preventing changes from being saved, but it has been fixed.</span>
-              </p>
-            </div>
-          </div>
-        </div>
+        <div id="settings-main" class="settings model hidden"></div>
         <div id="tool-main" class="mode-main">
           <h3>Enter a number to check if it's prime:</h3>
           <form action="javascript:checkRange()">
