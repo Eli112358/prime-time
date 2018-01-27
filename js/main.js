@@ -4,7 +4,7 @@ function load() {
   initTool();
   initGame();
   initStats();
-  initSettings();
+  initSettingsSpecific();
   ['button', 'input'].forEach((tag) => {
     [].forEach.call(getByTag(tag), (ele) => {
       ele.classList.add('btn')

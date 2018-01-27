@@ -42,7 +42,7 @@ function initStats() {
 }
 function calcStats() {
   stats.count = stats.primes.length;
-  stats.density = stats.count/getNumVal(settings.ele.range);
+  stats.density = stats.count/getNumVal(settings.store.ele.range);
   for(var x=1;x<stats.count;x++) ((p) => {
     stats.gaps.push(p-stats.primes[x-1]);
   }) (stats.primes[x]);
