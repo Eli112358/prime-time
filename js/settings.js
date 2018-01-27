@@ -1,7 +1,7 @@
 var settings;
 function initSettings() {
   var colors = ['red', 'green', 'blue'];
-  settings = initModule('settings-', ['main', 'open', 'close', 'range', 'mode', 'formula', 'offset']);
+  settings = initModule('settings-', ['main', 'open', 'close', 'mode']);
   settings.color = initModule('settings-color-', colors);
   settings.store = initModule('settings-store-', ['formula', 'range', 'offset']);
   settings.save = (ele) => {localStorage[ele.id] = ele.value};
@@ -25,18 +25,18 @@ function initSettings() {
       settings.color.set(n, this.value)
     });
   });
-  var setupButton = (name, values, func) => {
-    settings.ele[name].onclick = () => {
-      toggleButton(settings.ele[name], 'value', name, values);
+  var setupButton = (ele, values, func) => {
+    ele.onclick = () => {
+      toggleButton(ele, 'value', true, values);
       func();
     };
-    if(parseBool(localStorage[name])) {
+    if(parseBool(localStorage[ele.id])) {
       func();
-      settings.ele[name].value = values[0];
+      ele.value = values[0];
     }
-    else localStorage[name] = 'false';
+    else localStorage[ele.id] = 'false';
   };
-  setupButton('mode', ['Game', 'Tool'], () => {
+  setupButton(settings.ele.mode, ['Game', 'Tool'], () => {
     ['mode-main', 'settings-section'].forEach((n) => {
       [].forEach.call(getByClass(n), toggle);
     });
