@@ -1,7 +1,10 @@
 var settings = {};
 function initSettingsSpecific() {
   initSettings({
-    'returnObject': settings,
+    'get': () => settings,
+    'set': (newValue) => {
+      settings = newValue
+    },
     'store': ['range', 'formula', 'offset'],
     'toggle': ['mode'],
     'func': () => {
