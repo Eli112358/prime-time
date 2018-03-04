@@ -10,5 +10,8 @@ function load() {
       ele.classList.add('btn')
     })
   });
-  insertCodeFromFile({'path': 'https://eli112358.github.io/snippets/header.txt', 'element': document.getElementById('header'), 'func': () => {}});
+  insertCodeFromFile({
+    'path': '../snippets/header.txt',
+    'id': 'header'
+  });
 }
