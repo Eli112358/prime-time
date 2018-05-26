@@ -5,11 +5,25 @@ function initPrime() {
     'yes': 'Prime',
     'pf':  'P.F.*: '
   };
+  if(!localStorage.hasOwnProperty('primes')) localStorage.primes='';
+  prime.primes = localStorage.primes.split(',');
+  prime.addPrime = (n) => {
+    if(!prime.primes.indexOf(n)==-1) return;
+    prime.primes.push(n);
+    localStorage.primes=prime.primes.join(',');
+  };
   prime.bool = (n) => prime.isPrime(n)==prime.values.yes;
   prime.isFactor = (a,b) => a%b==0;
-  prime.isPrime = (num) => {
-    if(num<2) return prime.values.no;
-    for(var i=2; i<(num/3)+1; i++) if(prime.isFactor(num,i)) return prime.values.pf;
+  prime.isPrime = (n) => {
+    if(n<2) return prime.values.no;
+    var params = {'init': 2, 'len': (n/3)+1, 'usePrimes': false};
+    var pLen=prime.primes.length;
+    if(pLen>0) if(prime.primes[pLen-1]>params.len) params = {'init': 0, 'len': pLen, 'usePrimes': true};
+    for(var i=params.init; i<params.len; i++) {
+      if(!params.usePrimes) if(prime.bool(i)) prime.addPrime(i);
+      if(prime.isFactor(n,(params.usePrimes?prime.primes[i]:i))) return prime.values.pf;
+    }
+    prime.addPrime(n);
     return prime.values.yes;
   };
   prime.factorize = (num, factors) => {
