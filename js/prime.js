@@ -34,9 +34,9 @@ function initPrime() {
       return next();
     };
     if(prime.bool(num)) return step(num, () => factors);
-    for(var i=2; i<(num/2)+1; i++) {
-      if(prime.bool(i) && prime.isFactor(num,i)) {
-        return step(i, () => prime.factorize(num/i, factors));
+    for(var i=0; i<prime.primes.length; i++) {
+      if(prime.isFactor(num,prime.primes[i])) {
+        return step(prime.primes[i], () => prime.factorize(num/prime.primes[i], factors));
       }
     }
     return factors;
