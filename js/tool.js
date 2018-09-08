@@ -38,7 +38,6 @@ function checkRange() {
     if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
   }
   info.setFunctions(tool.info);
-  info.setFunctions(tool.info);
   calcStats();
 }
 function clearForm(full) {

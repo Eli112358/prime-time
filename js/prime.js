@@ -6,9 +6,10 @@ function initPrime() {
     'pf':  'P.F.*: '
   };
   if(!localStorage.hasOwnProperty('primes')) localStorage.primes='';
-  prime.primes = localStorage.primes.split(',');
+  prime.primes = [];
+  localStorage.primes.split(',').forEach((s) => {if (s.length) prime.primes.push(parseInt(s))})
   prime.addPrime = (n) => {
-    if(!prime.primes.indexOf(n)==-1) return;
+    if(prime.primes.indexOf(n)>-1) return;
     prime.primes.push(n);
     localStorage.primes=prime.primes.join(',');
   };
@@ -21,7 +22,8 @@ function initPrime() {
     if(pLen>0) if(prime.primes[pLen-1]>params.len) params = {'init': 0, 'len': pLen, 'usePrimes': true};
     for(var i=params.init; i<params.len; i++) {
       if(!params.usePrimes) if(prime.bool(i)) prime.addPrime(i);
-      if(prime.isFactor(n,(params.usePrimes?prime.primes[i]:i))) return prime.values.pf;
+      p = params.usePrimes?prime.primes[i]:i;
+      if (n!=p) if(prime.isFactor(n,p)) return prime.values.pf;
     }
     prime.addPrime(n);
     return prime.values.yes;
