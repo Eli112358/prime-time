@@ -44,6 +44,7 @@ function initGame() {
     game.ele.pf.innerHTML = '';
     for(var x=2; x<vals.range+vals.offset; x++) if(prime.bool(x))
       game.ele.pf.innerHTML += `<option value="${x}">${x}</option>`;
+    game.ele.pow.value = 1
   };
   game.end = initModule('end-game-', ['main', 'close', 'score', 'par']);
   game.end.model = initModel(game.end, () => {
