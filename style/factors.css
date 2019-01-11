@@ -11,13 +11,14 @@
 .factors li::before {
 	font-size: 22px;
 	font-weight: bold;
+	margin: 0px;
 	content: counter(number) ": ";
 	counter-increment: number var(--increment);
 }
 
 .factors h2[data-exp] {
 	display: inline;
-	margin: -.07em;
+	margin: 0px;
 }
 
 .factors h2[data-exp]::after {
