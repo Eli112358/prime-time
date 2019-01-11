@@ -44,8 +44,8 @@ function initPrime() {
     return factors;
   };
   prime.pfToStr = (factors) => {
-    var str='';
-    for(var i in factors) str += `${i}<sup>${factors[i]}</sup>`;
-    return str;
+    var str = '<li>';
+    for (var i in factors) str += `<h2 data-exp="${factors[i]}">${i}</h2>`;
+    return str + '</li>';
   };
 }

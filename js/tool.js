@@ -10,19 +10,15 @@ function initTool() {
   };
 }
 function checkNumber(num) {
+  var liWord = (word) => `<li><h2 data-exp="">${word}</h2></li>`;
   var pVal = prime.isPrime(num);
-  if(pVal==prime.values.pf) {
-    info.create({
-      'name': 'pf',
-      'func': (code) => {
-        pVal = pVal.replace('*', code);
-      }
-    });
+  if(pVal==prime.values.no) {
+    tool.out(liWord(pVal));
+    return;
   }
-  tool.out(pVal);
-  if(pVal==prime.values.no) return;
   if(pVal==prime.values.yes) {
     stats.primes.push(num);
+    tool.out(liWord(pVal));
     return;
   }
   var factors = prime.factorize(num, []);
@@ -32,9 +28,7 @@ function checkRange() {
   clearForm(false);
   for(var x=0;x<getNumVal(settings.store.ele.range);x++) {
     var num = getNumVal(tool.ele.input) + eval(settings.store.ele.formula.value);
-    tool.out(num+': ');
     checkNumber(num);
-    tool.out('<br>');
     if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
   }
   info.setFunctions(tool.info);
