@@ -1,19 +1,21 @@
-$start: 0;
-$increment: 1;
+:root {
+	--start: 0;
+	--increment: 1;
+}
 
 .factors {
 	list-style: none;
-	counter-reset: number $start;
+	counter-reset: number --start;
 
 	&::before {
-		content: $start;
+		content: --start;
 	}
 }
 
 .factors li::before {
 	font-size: 22px;
 	font-weight: bold;
-	counter-increment: number $increment;
+	counter-increment: number --increment;
 	content: counter(number) ": ";
 }
 
