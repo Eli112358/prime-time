@@ -26,7 +26,13 @@ function checkNumber(num) {
 }
 function checkRange() {
 	clearForm(false);
-	for(var x=0;x<getNumVal(settings.store.ele.range);x++) {
+	var x = 0;
+	var start = eval(settings.store.ele.formula.value);
+	x = 1;
+	var increment = eval(settings.store.ele.formula.value) - start;
+	document.style.setProperty('--start', start);
+	document.style.setProperty('--increment', increment);
+	for(x = 0; x < getNumVal(settings.store.ele.range); x++) {
 		var num = getNumVal(tool.ele.input) + eval(settings.store.ele.formula.value);
 		checkNumber(num);
 		if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
