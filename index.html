@@ -1,18 +1,17 @@
 <html>
-  <head>
-	  <meta charset="UTF-8">
+	<head>
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css"></link>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<link rel="stylesheet" type="text/css" href="../stylesheets/stylesheet.css"></link>
 		<link rel="stylesheet" type="text/css" href="../stylesheets/pygment_trac.css"></link>
-    <link rel="stylesheet" type="text/css" href="../stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="../stylesheets/model.css"></link>
+		<link rel="stylesheet" type="text/css" href="../stylesheets/print.css" media="print">
+		<link rel="stylesheet" type="text/css" href="../stylesheets/model.css"></link>
 		<link rel="stylesheet" type="text/css" href="css/main.css"></link>
-    <title>Eli112358 - Prime Time</title>
-    <script src="../javascripts/fetchRemoteFile.js"></script>
-    <script src="../javascripts/model.js"></script>
-    <script src="../javascripts/module.js"></script>
-    <script src="../javascripts/settings.js"></script>
+		<script src="../javascripts/fetchRemoteFile.js"></script>
+		<script src="../javascripts/model.js"></script>
+		<script src="../javascripts/module.js"></script>
+		<script src="../javascripts/settings.js"></script>
 		<script type="text/javascript" src="js/game.js"></script>
 		<script type="text/javascript" src="js/info.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
@@ -20,81 +19,82 @@
 		<script type="text/javascript" src="js/settings-specific.js"></script>
 		<script type="text/javascript" src="js/stats.js"></script>
 		<script type="text/javascript" src="js/tool.js"></script>
-  </head>
-  <body onload="load()">
-    <header>
+		<title>Eli112358 - Prime Time</title>
+	</head>
+	<body onload="load()">
+		<header>
 			<div class="container">
 				<h1>Eli112358</h1>
-        <h2>Prime Time</h2>
-        <section id="header"></section>
+				<h2>Prime Time</h2>
+				<section id="header"></section>
 			</div>
 		</header>
 		<div class="container">
 			<section id="main_content">
-        <button id="settings-open">Settings</button><br><br>
-        <div id="info-main" class="info model hidden">
-          <div class="model-content">
-            <div class="model-header">
-              <span id="info-close" class="close">&times;</span>
-              <h2>Info: <span id="info-title"></span></h2>
-            </div>
-            <div id="info-body" class="model-body"></div>
-            <div id="info-footer" class="model-footer"></div>
-          </div>
-        </div>
-        <div id="settings-main" class="settings model hidden"></div>
-        <div id="tool-main" class="mode-main">
-          <h3>Enter a number to check if it's prime:</h3>
-          <form action="javascript:checkRange()">
-            <input type="number" id="tool-input" autofocus>
-            <input type="submit" value="Check" class="button"><br>
-            <input type="reset" onclick="clearForm(true)" class="button">
-            <input type="button" value="-" onclick="delta('-')" class="button delta">
-            <input type="button" value="+" onclick="delta('+')" class="button delta">
-          </form>
-          <h2>Stats
-            <button id="stats-toggle">show</button>
-          </h2>
-          <div id="stats-div" class="hidden"></div>
-          <h2 id="tool-answer"></h2>
-          <p id="tool-pf" class="hidden">*Prime Factorization</p>
-        </div>
-        <div id="game-main" class="mode-main hidden">
-          <h4 id="game-info-how-to-play">How to play?</h4>
-          <h3>Score<sup id="game-info-scoring">?</sup>: <span id="game-score">0</span></h3>
-          <h3>Target<sup id="game-info-target">?</sup>: <span id="game-target">0</span></h3>
-          <p>Try to guess the prime factors of the target</p>
-          <form action="javascript:makeGuess()">
-            Prime Factor:
-            <select id="game-pf">
-              <option value="2">2</option>
-            </select>
-            to the Power of:
-            <input type="number" id="game-pow" value="1"><br/>
-            <input type="submit" id="game-guess" value="Guess" class="button">
-            <input type="reset" id="game-start" value="New Game" class="button">
-          </form>
-          <h2>Correct:</h2>
-          <h2 id="game-correct"></h2>
-          <h2>Incorrect:</h2>
-          <h2 id="game-incorrect"></h2>
-        </div>
-        <div id="end-game-main" class="end-game model hidden">
-          <div class="model-content">
-            <div class="model-header">
-              <span id="end-game-close" class="close">&times;</span>
-              <h2>End-game</h2>
-            </div>
-            <div class="model-body">
-              <h2>Score: <span id="end-game-score"></span></h2>
-              <h2>Par: <span id="end-game-par"></span></h2>
-            </div>
-            <div class="model-footer">
-              Thanks for playing! Closing this will start a new game
-            </div>
-          </div>
-        </div>
+				<button id="settings-open">Settings</button><br><br>
+				<div id="info-main" class="info model hidden">
+					<div class="model-content">
+						<div class="model-header">
+							<span id="info-close" class="close">&times;</span>
+							<h2>Info: <span id="info-title"></span></h2>
+						</div>
+						<div id="info-body" class="model-body"></div>
+						<div id="info-footer" class="model-footer"></div>
+					</div>
+				</div>
+				<div id="settings-main" class="settings model hidden"></div>
+				<div id="tool-main" class="mode-main">
+					<h3>Enter a number to check if it's prime:</h3>
+					<form action="javascript:checkRange()">
+						<input type="number" id="tool-input" autofocus>
+						<input type="submit" value="Check" class="button"><br>
+						<input type="reset" onclick="clearForm(true)" class="button">
+						<input type="button" value="-" onclick="delta('-')" class="button delta">
+						<input type="button" value="+" onclick="delta('+')" class="button delta">
+					</form>
+					<h2>Stats
+						<button id="stats-toggle">show</button>
+					</h2>
+					<div id="stats-div" class="hidden"></div>
+					<h2 id="tool-answer"></h2>
+					<p id="tool-pf" class="hidden">*Prime Factorization</p>
+				</div>
+				<div id="game-main" class="mode-main hidden">
+					<h4 id="game-info-how-to-play">How to play?</h4>
+					<h3>Score<sup id="game-info-scoring">?</sup>: <span id="game-score">0</span></h3>
+					<h3>Target<sup id="game-info-target">?</sup>: <span id="game-target">0</span></h3>
+					<p>Try to guess the prime factors of the target</p>
+					<form action="javascript:makeGuess()">
+						Prime Factor:
+						<select id="game-pf">
+							<option value="2">2</option>
+						</select>
+						to the Power of:
+						<input type="number" id="game-pow" value="1"><br/>
+						<input type="submit" id="game-guess" value="Guess" class="button">
+						<input type="reset" id="game-start" value="New Game" class="button">
+					</form>
+					<h2>Correct:</h2>
+					<h2 id="game-correct"></h2>
+					<h2>Incorrect:</h2>
+					<h2 id="game-incorrect"></h2>
+				</div>
+				<div id="end-game-main" class="end-game model hidden">
+					<div class="model-content">
+						<div class="model-header">
+							<span id="end-game-close" class="close">&times;</span>
+							<h2>End-game</h2>
+						</div>
+						<div class="model-body">
+							<h2>Score: <span id="end-game-score"></span></h2>
+							<h2>Par: <span id="end-game-par"></span></h2>
+						</div>
+						<div class="model-footer">
+							Thanks for playing! Closing this will start a new game
+						</div>
+					</div>
+				</div>
 			</section>
 		</div>
-  </body>
+	</body>
 </html>
