@@ -26,7 +26,7 @@ function checkNumber(num) {
 }
 function checkRange() {
 	clearForm(false);
-	var x = 0;
+	var x = getNumVal(tool.ele.input);
 	var start = eval(settings.store.ele.formula.value);
 	x = 1;
 	var increment = eval(settings.store.ele.formula.value) - start;
