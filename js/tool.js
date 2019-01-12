@@ -26,14 +26,14 @@ function checkNumber(num) {
 }
 function checkRange() {
 	clearForm(false);
-	var x = getNumVal(tool.ele.input);
-	var start = eval(settings.store.ele.formula.value);
-	x = 1;
-	var increment = eval(settings.store.ele.formula.value) - start;
+	var getNumber = (x) => eval(settings.store.ele.formula.value);
+	var input = getNumVal(tool.ele.input);
+	var start = getNumber(input);
+	var increment = getNumber(input + 1) - start;
 	document.body.style.setProperty('--start', start - increment);
 	document.body.style.setProperty('--increment', increment);
-	for(x = 0; x < getNumVal(settings.store.ele.range); x++) {
-		var num = getNumVal(tool.ele.input) + eval(settings.store.ele.formula.value);
+	for(var x = 0; x < getNumVal(settings.store.ele.range); x++) {
+		var num = input + getNumber(x);
 		checkNumber(num);
 		if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
 	}
