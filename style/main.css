@@ -11,9 +11,6 @@ input.button.delta {
 button, select {
 	height: 50px;
 }
-.hidden {
-	display: none;
-}
 a.top {
 	text-decoration: none;
 	color: #0f0
