@@ -7,7 +7,7 @@ function initSettingsSpecific() {
 		},
 		'store': ['range', 'formula', 'offset'],
 		'toggle': ['mode'],
-		'func': () => {
+		'postAppend': () => {
 			settings.toggle.setup({
 				'ele': settings.toggle.ele.mode,
 				'property': 'value',
