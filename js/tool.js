@@ -33,7 +33,7 @@ function checkRange() {
 	document.body.style.setProperty('--start', start - increment);
 	document.body.style.setProperty('--increment', increment);
 	for(var x = 0; x < getNumVal(settings.store.ele.range); x++) {
-		var num = input + getNumber(x);
+		var num = start + getNumber(x) - 1;
 		checkNumber(num);
 		if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
 	}
