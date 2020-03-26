@@ -14,27 +14,24 @@ function checkNumber(num) {
 	var pVal = prime.isPrime(num);
 	if(pVal==prime.values.no) {
 		tool.out(liWord(pVal));
-		return;
+		return tool.ele.answer.lastElementChild;
 	}
 	if(pVal==prime.values.yes) {
 		stats.primes.push(num);
 		tool.out(liWord(pVal));
-		return;
+		return tool.ele.answer.lastElementChild;
 	}
 	var factors = prime.factorize(num, []);
 	tool.out(prime.pfToStr(factors));
+	return tool.ele.answer.lastElementChild;
 }
 function checkRange() {
 	clearForm(false);
 	var getNumber = (x) => eval(settings.store.ele.formula.value);
 	var input = getNumVal(tool.ele.input);
-	var start = getNumber(input);
-	var increment = getNumber(input + 1) - start;
-	document.body.style.setProperty('--start', start - increment);
-	document.body.style.setProperty('--increment', increment);
-	for(var x = 0; x < getNumVal(settings.store.ele.range); x++) {
-		var num = start + getNumber(x) - 1;
-		checkNumber(num);
+	for(var x = input; x < getNumVal(settings.store.ele.range) + input; x++) {
+		var num = getNumber(x);
+		checkNumber(num).style.setProperty('--x', num);
 		if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
 	}
 	info.setFunctions(tool.info);

@@ -1,11 +1,11 @@
 :root {
-	--start: 0;
-	--increment: 1;
+	/* --start: 0; */
+	--x: 1;
 }
 
 .factors {
 	list-style: none;
-	counter-reset: number var(--start);
+	/* counter-reset: number var(--start); */
 }
 
 .factors li::before {
@@ -13,7 +13,7 @@
 	font-weight: bold;
 	margin: 0px;
 	content: counter(number) ": ";
-	counter-increment: number var(--increment);
+	counter-reset: number var(--x);
 }
 
 .factors h2[data-exp] {
