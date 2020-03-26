@@ -1,9 +1,9 @@
 var prime = {};
 function initPrime() {
 	prime.values = {
-		'no':    'Not prime',
+		'no':  'Not prime',
 		'yes': 'Prime',
-		'pf':    'P.F.*: '
+		'pf':  'P.F.*: '
 	};
 	if(!localStorage.hasOwnProperty('primes')) localStorage.primes='';
 	prime.primes = [];
