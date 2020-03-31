@@ -1,19 +1,16 @@
 :root {
-	/* --start: 0; */
-	--x: 1;
+	--x: '0';
 }
 
 .factors {
 	list-style: none;
-	/* counter-reset: number var(--start); */
 }
 
 .factors li::before {
 	font-size: 22px;
 	font-weight: bold;
 	margin: 0px;
-	content: counter(number) ": ";
-	counter-reset: number var(--x);
+	content: var(--x) ": ";
 }
 
 .factors h2[data-exp] {

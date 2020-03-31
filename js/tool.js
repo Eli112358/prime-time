@@ -31,7 +31,7 @@ function checkRange() {
 	var input = getNumVal(tool.ele.input);
 	for(var x = input; x < getNumVal(settings.store.ele.range) + input; x++) {
 		var num = getNumber(x);
-		checkNumber(num).style.setProperty('--x', num);
+		checkNumber(num).style.setProperty('--x', `"${num}"`);
 		if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
 	}
 	info.setFunctions(tool.info);
