@@ -21,7 +21,7 @@ function checkNumber(num) {
 		tool.out(liWord(pVal));
 		return tool.ele.answer.lastElementChild;
 	}
-	var factors = prime.factorize(num, []);
+	var factors = prime.factorize(num);
 	tool.out(prime.pfToStr(factors));
 	return tool.ele.answer.lastElementChild;
 }
