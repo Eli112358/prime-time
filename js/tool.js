@@ -41,7 +41,7 @@ function clearForm(full) {
 	tool.ele.answer.innerHTML = '';
 	stats.clear();
 	if(!full) return;
-	tool.ele.input.value = '';
+	tool.ele.input.value = '0';
 	tool.ele.input.focus();
 }
 function delta(sign) {
