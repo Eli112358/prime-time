@@ -1,79 +1,126 @@
-var game;
-function initGame() {
-	game = initModule('game-', ['main', 'pf', 'pow', 'guess', 'correct', 'incorrect', 'start', 'target', 'score', 'how-to-play']);
-	game.info = initModule('game-info-', ['how-to-play', 'scoring', 'target']);
-	game.info.details = {
-		'how-to-play': {
-			'title': 'How to Play',
-			'body': 'Once you\'ve started a new game, use the drop-down to select a prime you think is a factor of the target. Then into the text-box, enter how many times you think it is a factor. Next press "Guess" and repeat until the target is one. This is a single player game without winning or losing, just scoring better.'
-		},
-		'scoring': {
-			'title': 'Game - Scoring',
-			'body': 'Scoring is like in golf: lower is better. Par is the sum of the powers of the prime factors of the starting target'
-		},
-		'target': {
-			'title': 'Game - Target number',
-			'body': 'This is the number you are trying to guess the prime factors of'
+import { Modal } from '/javascripts/modules/modal.js';
+import { Elemental } from '/javascripts/modules/elemental.js';
+import { data } from '../info/game.js';
+import { info } from './info.js';
+import { prime } from './prime.js';
+import { settings } from './settings-body.js';
+
+class EndGame extends Elemental {
+	constructor(game) {
+		super('end-game-', [
+			'main',
+			'close',
+			'par',
+			'score',
+		]);
+		this.game = game;
+		this.modal = new Modal(this, () => {
+			this.game.elements.start.onclick();
+		});
+	}
+	go() {
+		this.fillFrom(this, Object.keys(this.elements).slice(2));
+		this.modal.open();
+	}
+}
+
+class Game extends Elemental {
+	constructor() {
+		super('game-', [
+			'main',
+			'correct',
+			'guess',
+			'how_to_play',
+			'incorrect',
+			'pf',
+			'pow',
+			'score',
+			'start',
+			'target',
+		]);
+		this.info = new Elemental('game-info-', [
+			'how_to_play',
+			'scoring',
+			'target',
+		]);
+		this.info.details = data;
+		for (var name in this.info.details) {
+			this.info.elements[name].classList.add(name);
+			info.setOnclick(this.info.elements[name], this.info.details);
 		}
-	};
-	for(var n in game.info.details) {
-		game.info.ele[n].classList.add(n);
-		info.setOnclick(game.info.ele[n], game.info.details);
+		this.elements.start.onclick = this.start.bind(this);
+		this.end = new EndGame(this);
 	}
-	game.refresh = () => {
-		['score', 'target'].forEach((n) => {
-			game.ele[n].innerHTML = game[n];
-		});
-	};
-	game.ele.start.onclick = () => {
-		game.factors = {};
-		game.score = 0;
-		var vals = {};
-		['range', 'offset'].forEach((n) => {
-			vals[n] = getNumVal(settings.store.ele[n]);
-		});
-		game.target = vals.offset+Date.now()%vals.range;
-		game.refresh();
-		var targetPF = prime.factorize(game.target, []);
-		game.par = 0;
-		for(var i in targetPF) game.par+=targetPF[i];
-		['', 'in'].forEach((n) => {
-			game.ele[n+'correct'].innerHTML = '';
-			game.factors[n+'correct'] = [];
-		});
-		game.ele.pf.innerHTML = '';
-		for(var x=2; x<vals.range+vals.offset; x++) if(prime.bool(x))
-			game.ele.pf.innerHTML += `<option value="${x}">${x}</option>`;
-		game.ele.pow.value = 1
-	};
-	game.end = initModule('end-game-', ['main', 'close', 'score', 'par']);
-	game.end.model = initModel(game.end, () => {
-		game.ele.start.onclick();
-	});
-	game.end.go = () => {
-		['score', 'par'].forEach((n) => {
-			game.end.ele[n].innerHTML = game[n];
-		});
-		game.end.model.open();
-	};
-	info.setFunctions(game.info.details);
-}
-function makeGuess() {
-	if(game.target == 1) return game.end.go();
-	var guess = {};
-	['pf', 'pow'].forEach((n) => {guess[n] = getNumVal(game.ele[n])});
-	if(guess.pow<1) return;
-	while(guess.pow>0) {
-		var isAFactor = prime.isFactor(game.target, guess.pf);
-		var guessed = game.factors[(isAFactor?'':'in')+'correct'];
-		guessed[guess.pf]|=0;
-		guessed[guess.pf]++;
-		guess.pow--;
-		if(isAFactor) game.target /= guess.pf;
-		else game.score++;
+	get range() {
+		return parseInt(settings.store.elements.range.value);
 	}
-	['', 'in'].forEach((n) => {game.ele[n+'correct'].innerHTML = prime.pfToStr(game.factors[n+'correct'])});
-	game.score++;
-	game.refresh();
-	if(game.target == 1) game.end.go();
+	get offset() {
+		return parseInt(settings.store.elements.offset.value);
+	}
+	guess() {
+		if (this.target == 1) {
+			return this.end.go();
+		}
+		let [pf, pow] = ['pf', 'pow'].map((k) => parseInt(this.elements[k].value));
+		let guess = {pf, pow};
+		if (guess.pow < 1) {
+			return;
+		}
+		while (guess.pow) {
+			let isFactor = (this.target % guess.pf) == 0;
+			let guessed = this.factors[(isFactor?'':'in') + 'correct'];
+			let i = 0;
+			for (i = 0; guessed[i] && guessed[i][0] != guess.pf; i++) {}
+			if (!guessed[i]) {
+				guessed[i] = [guess.pf, 0];
+			}
+			guessed[i][1]++;
+			guess.pow--;
+			if (isFactor) {
+				this.target /= guess.pf;
+			} else {
+				this.score++;
+			}
+		}
+		this.outFactors(true);
+		this.outFactors(false);
+		this.score++;
+		this.refresh();
+		if (this.target == 1) {
+			this.end.go();
+		}
+	}
+	refresh() {
+		this.fillFrom(this, ['score', 'target']);
+		this.elements.pow.value = 1;
+	}
+	outFactors(correct) {
+		let id = `${correct ? '' : 'in'}correct`;
+		this.elements[id].innerHTML = prime.stringify(this.factors[id]);
+	}
+	start() {
+		this.factors = {
+			correct: [],
+			incorrect: [],
+		};
+		this.score = 0;
+		this.target = this.offset + (Date.now() % this.range);
+		this.refresh();
+		this.par = prime.powerSum(prime.factorize(this.target));
+		this.elements.correct.innerHTML = '';
+		this.factors.correct = [];
+		this.elements.incorrect.innerHTML = '';
+		this.factors.incorrect = [];
+		let option = (i) => `<option value="${i}">${i}</option>`;
+		let primes = prime.upTo(this.range + this.offset);
+		this.elements.pf.innerHTML = primes.map(option).join('');
+		this.elements.pow.value = 1;
+	}
 }
+
+const game = new Game();
+window.makeGuess = game.guess.bind(game);
+
+export {
+	game,
+};

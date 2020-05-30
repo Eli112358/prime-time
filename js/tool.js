@@ -1,49 +1,67 @@
-var tool;
-function initTool() {
-	tool = initModule('tool-', ['main', 'input', 'answer']);
-	tool.out = (str) => {tool.ele.answer.innerHTML += str};
-	tool.info = {
-		'pf': {
-			'title': 'Tool - P.F.',
-			'body': `Prime Factorization (${google('prime factorization')})`
+import { Elemental } from '/javascripts/modules/elemental.js';
+import { info } from './info.js';
+import { prime } from './prime.js';
+import { settings } from './settings-body.js';
+import { stats } from './stats.js';
+
+class Tool extends Elemental {
+	top = '<a href="#" class="top">Top</a><br>';
+	constructor() {
+		super('tool-', [
+			'main',
+			'answer',
+			'input',
+		]);
+	}
+	check(n) {
+		let value = prime.is(n);
+		let factors = [[value, '']];
+		if (eval(`'${value}'=='${prime.values.pf}'`)) {
+			factors = prime.factorize(n);
+		} else if (value) {
+			stats.primes.push(n);
 		}
-	};
-}
-function checkNumber(num) {
-	var liWord = (word) => `<li><h2 data-exp="">${word}</h2></li>`;
-	var pVal = prime.isPrime(num);
-	if(pVal==prime.values.no) {
-		tool.out(liWord(pVal));
-		return tool.ele.answer.lastElementChild;
+		this.out(prime.stringify(factors));
+		return this.elements.answer.lastElementChild;
 	}
-	if(pVal==prime.values.yes) {
-		stats.primes.push(num);
-		tool.out(liWord(pVal));
-		return tool.ele.answer.lastElementChild;
+	clear(full) {
+		this.elements.answer.innerHTML = '';
+		stats.clear();
+		if (full) {
+			this.elements.input.value = '0';
+			this.elements.input.focus();
+		}
 	}
-	var factors = prime.factorize(num);
-	tool.out(prime.pfToStr(factors));
-	return tool.ele.answer.lastElementChild;
-}
-function checkRange() {
-	clearForm(false);
-	var getNumber = (x) => eval(settings.store.ele.formula.value);
-	var input = getNumVal(tool.ele.input);
-	for(var x = input; x < getNumVal(settings.store.ele.range) + input; x++) {
-		var num = getNumber(x);
-		checkNumber(num).style.setProperty('--x', `"${num}"`);
-		if(x%10==9) tool.out('<a href="#" class="top">Top</a><br>');
+	delta(sign) {
+		this.elements.input.value = eval([
+			this.elements.input.value,
+			sign,
+			settings.store.elements.range.value,
+		].join(''));
 	}
-	info.setFunctions(tool.info);
-	calcStats();
+	out(s) {
+		this.elements.answer.insertAdjacentHTML('beforeEnd', s);
+	}
+	range() {
+		this.clear(false);
+		let start = parseInt(this.elements.input.value);
+		let end = parseInt(settings.store.elements.range.value);
+		for (var x = start; x < end + start; x++) {
+			let n = eval(settings.store.elements.formula.value);
+			this.check(n).style.setProperty('--x', `"${n}"`);
+			if ((x % 10) == 9) {
+				this.out(this.top);
+			}
+		}
+		stats.calculate();
+	}
 }
-function clearForm(full) {
-	tool.ele.answer.innerHTML = '';
-	stats.clear();
-	if(!full) return;
-	tool.ele.input.value = '0';
-	tool.ele.input.focus();
-}
-function delta(sign) {
-	tool.ele.input.value = eval(tool.ele.input.value+sign+settings.store.ele.range.value);
-}
+
+const tool = new Tool();
+window.checkRange = tool.range.bind(tool);
+window.clearForm = tool.clear.bind(tool);
+window.delta = tool.delta.bind(tool);
+
+export {
+	tool,
+};

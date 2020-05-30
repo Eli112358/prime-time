@@ -1,29 +1,47 @@
-var info;
-function initInfo() {
-	info = initModule('info-', ['main', 'close', 'title', 'body', 'footer']);
-	info.target = 'info-target';
-	info.model = initModel(info, () => {
-		['title', 'body', 'footer'].forEach((n) => {
-			info.ele[n].innerHTML = '';
+import { Modal } from '/javascripts/modules/modal.js';
+import { Elemental } from '/javascripts/modules/elemental.js';
+
+class InformationPanel extends Elemental {
+	target = 'info-target';
+	constructor() {
+		const elementNames = ['main', 'close', 'title', 'body', 'footer'];
+		super('info-', elementNames);
+		this.modal = new Modal(this, () => {
+			elementNames.slice(2).forEach((item) => {
+				this.elements[item].innerHTML = '';
+			});
 		});
-	});
-	info.log = (details) => {
-		for (var n in details) info.ele[n].innerHTML = details[n];
-		info.model.open();
-	};
-	info.create = (spec) => {
-		spec.func(`<sup class="${info.target} ${spec.name}">${spec.inner?spec.inner:'?'}</sup>`);
-	};
-	info.setOnclick = (ele, details) => {
-		ele.onclick = function() {info.log(details[this.classList[0]])};
-	};
-	info.setFunctions = (details) => {for (var n in details) {
-		[].forEach.call(getByClass(info.target+' '+n), (a) => {
-			info.setOnclick(a, details);
-			a.classList.remove(info.target);
-		});
-	}};
+	}
+	create({
+		callback,
+		inner=null,
+		name,
+	}={}) {
+		callback(`<sup class="${this.target} ${name}">${inner ? inner : '?'}</sup>`);
+	}
+	log(details) {
+		for (var name in details) {
+			this.elements[name].innerHTML = details[name];
+		}
+		this.modal.open();
+	}
+	setFunctions(details) {
+		for (var name in details) {
+			Array.from(document.querySelectorAll(`.${this.target} ${name}`)).forEach((element) => {
+				this.setOnclick(element, details);
+				element.classList.remove(this.target);
+			});
+		}
+	}
+	setOnclick(element, details) {
+		element.onclick = (event) => {
+			this.log(details[event.target.classList[0]]);
+		};
+	}
 }
-function google(q) {
-	return `<a href="https://www.google.com/search?q=${q.replace(' ', '+')}" target="_newtab">Google</a>`;
-}
+
+const info = new InformationPanel();
+
+export {
+	info,
+};

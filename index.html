@@ -3,25 +3,16 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">
-		<link rel="stylesheet" type="text/css" href="https://eli112358.github.io/stylesheets/stylesheet.css"></link>
-		<link rel="stylesheet" type="text/css" href="https://eli112358.github.io/stylesheets/pygment_trac.css"></link>
-		<link rel="stylesheet" type="text/css" href="https://eli112358.github.io/stylesheets/model.css"></link>
-		<link rel="stylesheet" type="text/css" href="style/main.css"></link>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/modal.css"></link>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css"></link>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css"></link>
 		<link rel="stylesheet" type="text/css" href="style/factors.css"></link>
-		<script type="text/javascript" src="https://eli112358.github.io/javascripts/fetchRemoteFile.js"></script>
-		<script type="text/javascript" src="https://eli112358.github.io/javascripts/model.js"></script>
-		<script type="text/javascript" src="https://eli112358.github.io/javascripts/module.js"></script>
-		<script type="text/javascript" src="https://eli112358.github.io/javascripts/settings.js"></script>
-		<script type="text/javascript" src="js/game.js"></script>
-		<script type="text/javascript" src="js/info.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/prime.js"></script>
-		<script type="text/javascript" src="js/settings-specific.js"></script>
-		<script type="text/javascript" src="js/stats.js"></script>
-		<script type="text/javascript" src="js/tool.js"></script>
+		<link rel="stylesheet" type="text/css" href="style/main.css"></link>
+		<script type="module" src="js/game.js"></script>
+		<script type="module" src="js/tool.js"></script>
 		<title>Eli112358 - Prime Time</title>
 	</head>
-	<body onload="load()">
+	<body>
 		<header>
 			<div class="container">
 				<h1>Eli112358</h1>
@@ -32,17 +23,17 @@
 		<div class="container">
 			<section id="main_content">
 				<button id="settings-open">Settings</button><br><br>
-				<div id="info-main" class="info model hidden">
-					<div class="model-content">
-						<div class="model-header">
+				<div id="info-main" class="info modal hidden">
+					<div class="modal-content">
+						<div class="modal-header">
 							<span id="info-close" class="close">&times;</span>
 							<h2>Info: <span id="info-title"></span></h2>
 						</div>
-						<div id="info-body" class="model-body"></div>
-						<div id="info-footer" class="model-footer"></div>
+						<div id="info-body" class="modal-body"></div>
+						<div id="info-footer" class="modal-footer"></div>
 					</div>
 				</div>
-				<div id="settings-main" class="settings model hidden"></div>
+				<div id="settings-main" class="settings modal hidden"></div>
 				<div id="tool-main" class="mode-main">
 					<h3>Enter a number to check if it's prime:</h3>
 					<form action="javascript:checkRange()">
@@ -57,39 +48,54 @@
 					</h2>
 					<div id="stats-div" class="hidden"></div>
 					<ul id="tool-answer" class="factors"></ul>
-					<p id="tool-pf" class="hidden">*Prime Factorization</p>
 				</div>
 				<div id="game-main" class="mode-main hidden">
-					<h4 id="game-info-how-to-play">How to play?</h4>
+					<h4 id="game-info-how_to_play">How to play?</h4>
 					<h3>Score<sup id="game-info-scoring">?</sup>: <span id="game-score">0</span></h3>
 					<h3>Target<sup id="game-info-target">?</sup>: <span id="game-target">0</span></h3>
 					<p>Try to guess the prime factors of the target</p>
 					<form action="javascript:makeGuess()">
-						Prime Factor:
-						<select id="game-pf">
-							<option value="2">2</option>
-						</select>
-						to the Power of:
-						<input type="number" id="game-pow" value="1"><br/>
-						<input type="submit" id="game-guess" value="Guess" class="button">
-						<input type="reset" id="game-start" value="New Game" class="button">
+						<table>
+							<tr>
+								<td>Prime Factor:</td>
+								<td>
+									<select id="game-pf">
+										<option value="2">2</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>to the Power of:</td>
+								<td>
+									<input type="number" id="game-pow" value="1"><br/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<input type="submit" id="game-guess" value="Guess" class="button">
+								</td>
+								<td>
+									<input type="reset" id="game-start" value="New Game" class="button">
+								</td>
+							</tr>
+						</table>
 					</form>
 					<h2>Correct:</h2>
 					<ul id="game-correct" class="factors"></ul>
 					<h2>Incorrect:</h2>
 					<ul id="game-incorrect" class="factors"></ul>
 				</div>
-				<div id="end-game-main" class="end-game model hidden">
-					<div class="model-content">
-						<div class="model-header">
+				<div id="end-game-main" class="end-game modal hidden">
+					<div class="modal-content">
+						<div class="modal-header">
 							<span id="end-game-close" class="close">&times;</span>
 							<h2>End-game</h2>
 						</div>
-						<div class="model-body">
+						<div class="modal-body">
 							<h2>Score: <span id="end-game-score"></span></h2>
 							<h2>Par: <span id="end-game-par"></span></h2>
 						</div>
-						<div class="model-footer">
+						<div class="modal-footer">
 							Thanks for playing! Closing this will start a new game
 						</div>
 					</div>
