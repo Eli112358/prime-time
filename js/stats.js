@@ -1,5 +1,5 @@
 import { Elemental, toggleButton } from '/javascripts/modules/elemental.js'
-import { forEachEntry } from '/javascripts/modules/object-iterator.js';
+import { IterableObject } from '/javascripts/modules/iterable-object.js';
 import { data } from '../info/stats.js';
 import { info } from './info.js';
 import { settings } from './settings-body.js';
@@ -26,13 +26,13 @@ class Stats extends Elemental {
 		}
 		this.mean = sum / this.gaps.length;
 		this.clear();
-		forEachEntry(this.info, (name, _) => {
+		new IterableObject(this.info).forEach(([name, _]) => {
 			let prefix = (name.charAt(0) == 'm') ? ' (gap)' : '';
 			let callback = (code) => {
 				this.elements.div.insertAdjacentHTML('beforeEnd', `<h3>${name}${prefix}${code}: ${this[name]}</h3>`);
 			};
 			info.create({name, callback});
-		});
+		}, this);
 		info.setFunctions(this.info);
 
 	}
